@@ -181,8 +181,10 @@ function getCoreRequirements(dependencies, options, required = {}) {
             return required;
         }
         case 'linux':
-            required.CORE_SERVER_FOLDER += `/linux/${flavor}`;
-            required.CORE_ARCHIVE = `realm-core-${flavor}-v${dependencies.REALM_CORE_VERSION}-Linux-devel.tar.gz`;
+            // required.CORE_SERVER_FOLDER += `/linux/${flavor}`;
+            // required.CORE_ARCHIVE = `realm-core-${flavor}-v${dependencies.REALM_CORE_VERSION}-Linux-devel.tar.gz`;
+            const arch_string = options.arch == 'arm' ? '-armhf': '';
+            required.CORE_ARCHIVE = `realm-core-${flavor}-v${dependencies.REALM_CORE_VERSION}-Linux${arch_string}-devel.tar.gz`;
             required.OPENSSL = "https://static.realm.io/downloads/openssl/1.1.1b/Linux/x86_64/openssl.tgz";
             return required;
         default:
@@ -209,8 +211,10 @@ function getSyncRequirements(dependencies, options, required = {}) {
             return getCoreRequirements(dependencies, options, required);
         }
         case 'linux':
+            const arch_string = options.arch == 'arm' ? '-armhf': '';
             // flavor is ignored since we only publish Release mode
-            required.SYNC_ARCHIVE = `realm-sync-Release-v${dependencies.REALM_SYNC_VERSION}-Linux-devel.tar.gz`;
+            // required.SYNC_ARCHIVE = `realm-sync-Release-v${dependencies.REALM_SYNC_VERSION}-Linux-devel.tar.gz`;
+            required.SYNC_ARCHIVE = `realm-sync-Release-v${dependencies.REALM_SYNC_VERSION}-Linux${arch_string}-devel.tar.gz`;
             required.OPENSSL = "https://static.realm.io/downloads/openssl/1.1.1b/Linux/x86_64/openssl.tgz";
             return getCoreRequirements(dependencies, options, required);
         default:
